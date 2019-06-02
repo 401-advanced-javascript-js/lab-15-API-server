@@ -1,0 +1,156 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Server",
+    "description": "A Simple API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://api-server-js.herokuapp.com/api/v1/"
+    }
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "description": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "Successfully got list of categories.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Add a new category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added category and returned the added category",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "description": "Get One Category",
+        "responses": {
+          "200": {
+            "description": "Returned one category",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete One Category",
+        "responses": {
+          "200": {
+            "description": "Deleted one category",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delete"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Category"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returned the updated category",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CategoryList": {
+        "type": "array",
+        "example": [
+          {
+            "id": 1,
+            "Category 1": null
+          },
+          {
+            "id": 2,
+            "Category 2": null
+          }
+        ]
+      },
+      "NewCategory": {
+        "type": "object",
+        "example": {
+          "name": "Category Name"
+        }
+      },
+      "Category": {
+        "type": "object",
+        "example": {
+          "id": 2,
+          "name": "Category Name"
+        }
+      },
+      "Delete": {
+        "type": "object",
+        "example": {}
+      }
+    }
+  }
+}
