@@ -8,39 +8,31 @@
 ### Links and Resources
 * [submission PR](https://github.com/401-advanced-javascript-js/lab-15-API-server/pull/1)
 * [travis](https://www.travis-ci.com/401-advanced-javascript-js/lab-15-API-server)
-* [back-end](http://xyz.com) (when applicable)
+* [back-end](https://block-api-server.herokuapp.com/)
 
 #### Documentation
-* [api docs](http://xyz.com) (API servers)
-* [jsdoc](http://xyz.com) (Server assignments)
-* [styleguide](http://xyz.com) (React assignments)
-
-### Modules
-#### `modulename.js`
-##### Exported Values and Methods
-
-###### `foo(thing) -> string`
-Usage Notes or examples
-
-###### `bar(array) -> array`
-Usage Notes or examples
+* [api docs](https://block-api-server.herokuapp.com/api/v1/api-docs/)
+* [jsdoc](https://block-api-server.herokuapp.com/docs/)
 
 ### Setup
 #### `.env` requirements
 * `PORT` - Port Number
 * `MONGODB_URI` - URL to the running mongo instance/db
+* `SECRET` - Random string
+* `GOOGLE_CLIENT_ID` - Client id for google application
+* `GOOGLE_CLIENT_SECRET` - Client secret for google application
+* `API_URL` - URL to running server
+* `SINGLE_USE_TOKENS` - true/false
+* `TOKEN_EXPIRE` - time for tokens to expire
 
 #### Running the app
 * `npm start`
-* Endpoint: `/foo/bar/`
-  * Returns a JSON object with abc in it.
-* Endpoint: `/bing/zing/`
-  * Returns a JSON object with xyz in it.
   
 #### Tests
 * How do you run tests?
-* What assertions were made?
-* What assertions need to be / should be made?
+    
+    `npm test`
 
 #### UML
-Link to an image of the UML for your application and response to events
+
+~[UML]()

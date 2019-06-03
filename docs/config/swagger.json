@@ -117,6 +117,220 @@
           }
         }
       }
+    },
+    "/players": {
+      "get": {
+        "description": "Get all categories",
+        "responses": {
+          "200": {
+            "description": "Successfully got list of categories.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Add a new category",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added category and returned the added category",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/players/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "description": "Get One Player",
+        "responses": {
+          "200": {
+            "description": "Returned one player",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Player"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete One Player",
+        "responses": {
+          "200": {
+            "description": "Deleted one player",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delete"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a player",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Player"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returned the updated player",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Player"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams": {
+      "get": {
+        "description": "Get all teams",
+        "responses": {
+          "200": {
+            "description": "Successfully got list of teams.",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Add a new team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewTeam"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully added category and returned the added team",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "description": "Get One Team",
+        "responses": {
+          "200": {
+            "description": "Returned one team",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete One Team",
+        "responses": {
+          "200": {
+            "description": "Deleted one team",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Delete"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update a team",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Team"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returned the updated team",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/Team"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -150,7 +364,59 @@
       "Delete": {
         "type": "object",
         "example": {}
-      }
+      },
+      "PlayerList": {
+        "type": "array",
+        "example": [
+          {
+            "id": 1,
+            "Player 1": null
+          },
+          {
+            "id": 2,
+            "Player 2": null
+          }
+        ]
+      },
+      "NewPlayer": {
+        "type": "object",
+        "example": {
+          "name": "Player Name"
+        }
+      },
+      "Player": {
+        "type": "object",
+        "example": {
+          "id": 2,
+          "name": "Player Name"
+        }
+      },
+      "TeamList": {
+        "type": "array",
+        "example": [
+          {
+            "id": 1,
+            "Team 1": null
+          },
+          {
+            "id": 2,
+            "Team 2": null
+          }
+        ]
+      },
+      "NewTeam": {
+        "type": "object",
+        "example": {
+          "name": "Team Name"
+        }
+      },
+      "Team": {
+        "type": "object",
+        "example": {
+          "id": 2,
+          "name": "Team Name"
+        }
+      },
     }
   }
 }
