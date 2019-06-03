@@ -28,6 +28,7 @@ class Model {
         results: data,
       };
       console.log(output);
+      return output;
     });
   }
   
