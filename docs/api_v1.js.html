@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: api/v1.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: api/v1.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/**
+ * API Router Module (V1)
+ * Integrates with various models through a common Interface (.get(), .post(), .put(), .delete())
+ * @module src/api/v1
+ */
+
+// Current Working Directory
+const cwd = process.cwd();
+
+const express = require('express');
+const swagger = require('swagger-ui-express');
+const swaggerDocs = require('../../docs/config/swagger.json');
+
+
+// Figures out which model to use
+const modelFinder = require(`${cwd}/src/middleware/model-finder.js`);
+const auth = require(`${cwd}/src/auth/middleware.js`);
+
+// Used for routes for each model
+const router = express.Router();
+
+// Evaluate the model, dynamically
+router.param('model', modelFinder);
+
+router.use('/api/v1/api-docs', swagger.serve, swagger.setup(swaggerDocs));
+
+// API Routes
+router.get('/api/v1/:model', handleGetAll);
+router.post('/api/v1/:model', auth('create'), handlePost);
+
+router.get('/api/v1/:model/:id', handleGetOne);
+router.put('/api/v1/:model/:id', auth('update'), handlePut);
+router.delete('/api/v1/:model/:id', auth('delete'), handleDelete);
+
+// Route Handlers ----------------------------
+
+/**
+ * Gets all data for given model object and returns as array
+ * of objects in JSON format with status 200
+ * 
+ * @param {Object} request request object with .model
+ * @param {Object} response response object
+ * @param {Function} next next middleware to run
+ */
+function handleGetAll(request, response, next) {
+  request.model
+    .get()
+    .then((data) => {
+      const output = {
+        count: data.length,
+        results: data,
+      };
+      response.status(200).json(output);
+    })
+    .catch(next);
+}
+
+/**
+ * Gets data for some model with given id using model.get,
+ * returns data in JSON format with status 200
+ * 
+ * @param {Object} request request object with .model and .params.id
+ * @param {Object} response response object
+ * @param {Function} next next middleware to run
+ */
+function handleGetOne(request, response, next) {
+  request.model
+    .get(request.params.id)
+    .then((result) => response.status(200).json(result[0]))
+    .catch(next);
+}
+
+/**
+ * Posts data using model.post, returns added data with status 200
+ * 
+ * @param {Object} request request object with .model and .body
+ * @param {Object} response response object
+ * @param {Function} next next middleware to run
+ */
+function handlePost(request, response, next) {
+  request.model
+    .post(request.body)
+    .then((result) => response.status(200).json(result))
+    .catch(next);
+}
+
+/**
+ * Updates data of model with given id, 
+ * 
+ * @param {Object} request request object with .model
+ * @param {Object} response response object
+ * @param {Function} next next middleware to run
+ */
+function handlePut(request, response, next) {
+  request.model
+    .put(request.params.id, request.body)
+    .then((result) => response.status(200).json(result))
+    .catch(next);
+}
+
+/**
+ * Deletes data with given id (request.params.id)
+ * Returns status 200 and deleted data in JSON format
+ * 
+ * @param {Object} request request object with .model
+ * @param {Object} response response object
+ * @param {Function} next next middleware to run
+ */
+function handleDelete(request, response, next) {
+  request.model
+    .delete(request.params.id)
+    .then((result) => response.status(200).json(result))
+    .catch(next);
+}
+
+module.exports = router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-middleware_404.html">middleware/404</a></li><li><a href="module-middleware_500.html">middleware/500</a></li><li><a href="module-middleware_model-finder.html">middleware/model-finder</a></li><li><a href="module-models_categories_categories-model.html">models/categories/categories-model</a></li><li><a href="module-models_memory-model.html">models/memory-model</a></li><li><a href="module-models_mongo-model.html">models/mongo-model</a></li><li><a href="module-models_players_players-model.html">models/players/players-model</a></li><li><a href="module-models_players_players-schema.html">models/players/players-schema</a></li><li><a href="module-models_teams_teams-model.html">models/teams/teams-model</a></li><li><a href="module-models_teams_teams-schema.html">models/teams/teams-schema</a></li><li><a href="module-src_api_v1.html">src/api/v1</a></li><li><a href="module-src_app.html">src/app</a></li><li><a href="module-src_auth_middleware.html">src/auth/middleware</a></li><li><a href="module-src_auth_roles-model.html">src/auth/roles-model</a></li><li><a href="module-src_auth_router.html">src/auth/router</a></li><li><a href="module-src_auth_users-model.html">src/auth/users-model</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Sun Jun 02 2019 17:15:10 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
